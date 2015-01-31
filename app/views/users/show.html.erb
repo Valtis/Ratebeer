@@ -2,8 +2,20 @@
 
 <p>
   <strong>Username:</strong>
-  <%= @user.username %>
+  <%= @user.username %> has made <%= @user.ratings.count %> ratings with average score of <%= @user.average_rating %>
 </p>
+
+
+<% if not @user.ratings.empty? %>
+<p><strong>Ratings</strong></p>
+<ul>
+  <% @user.ratings.each do |rating| %>
+      <li> <%= rating %> <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %> </li>
+  <% end %>
+</ul>
+
+
+<% end %>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
