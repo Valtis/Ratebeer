@@ -14,8 +14,18 @@
   <% end %>
 </ul>
 
-
 <% end %>
+
+<p>
+  <strong>Member of <%= pluralize @user.beer_clubs.count, 'club' %>:</strong>
+<ul>
+  <% @user.beer_clubs.each do |c| %>
+      <li><%= link_to c.name, c %></li>
+  <% end  %>
+</ul>
+</p>
+
+
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
