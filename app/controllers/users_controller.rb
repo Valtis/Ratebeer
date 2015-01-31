@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   def update
 
     respond_to do |format|
-      if @user == current_user && @user.update(user_params)
+      if @user == current_user and user_params[:username].nil? and @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
