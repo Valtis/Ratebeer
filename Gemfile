@@ -35,6 +35,9 @@ gem 'rb-readline'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#pw digest
+gem 'bcrypt', '~> 3.1.7'
+
 group :development, :test do
 
   gem 'better_errors'
