@@ -34,6 +34,7 @@ class BeersController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
+        set_new_edit_data
       end
     end
   end
