@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   include AverageRating
-  has_many :ratings
+  has_many :ratings, dependent: :destroy
   has_many :beers, through: :ratings
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   has_many :beer_clubs, through: :memberships
 
   has_secure_password
