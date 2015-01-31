@@ -12,8 +12,9 @@ class User < ActiveRecord::Base
   validate :password_contains_capital_letter_and_number
 
   def password_contains_capital_letter_and_number
-    if  not password =~ /[A - Z]/ and not password =~ /[0 - 9]/
-      errors.add(:password, "must contain at least one capital letter and a number")
+    if  not password =~ /[A-Z]/ and not password =~ /[0-9]/
+      byebug
+      errors.add(:password, "must contain at least one capital letter and a number #{password}")
     end
   end
 end
