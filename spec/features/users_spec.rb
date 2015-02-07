@@ -66,10 +66,7 @@ describe "User" do
 
     it "can delete a rating they have made" do
       visit user_path(@user)
-      puts(@r2)
-
       page.find('li', :text => @r2.to_s).click_link 'delete'
-
       expect(@user.ratings.count).to eq(1)
       expect(@user.ratings.first).to eq(@r1)
 
