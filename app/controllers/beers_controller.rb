@@ -1,6 +1,6 @@
 class BeersController < ApplicationController
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
-  before_action :set_new_edit_data, only: [:new, :edit]
+  before_action :set_new_edit_data, only: [:new, :edit, :create]
   # GET /beers
   # GET /beers.json
   def index
@@ -34,7 +34,6 @@ class BeersController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
-        set_new_edit_data
       end
     end
   end
