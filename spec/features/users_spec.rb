@@ -3,7 +3,12 @@ include OwnTestHelper
 
 describe "User" do
   before :each do
-    FactoryGirl.create :user
+    @user = FactoryGirl.create :user
+    @user2 = FactoryGirl.create(:user, username: "Marko")
+    brewery = FactoryGirl.create :brewery
+    @beer = FactoryGirl.create :beer, name:"iso 3", brewery:brewery
+    @beer2 = FactoryGirl.create :beer, name:"testi", brewery:brewery
+
   end
 
   describe "who has signed up" do
@@ -30,6 +35,22 @@ describe "User" do
       expect{
         click_button('Create User')
       }.to change{User.count}.by(1)
+    end
+
+    it "has ratings listed in their userpage" do
+
+      r1 = Rating.create beer: @beer, user: @user, score: 20
+      r2 = Rating.create beer: @beer2, user: @user, score: 30
+      r3 = Rating.create beer: @beer, user: @user2, score: 10
+
+      visit user_path(@user)
+
+
+      expect(page).to have_content "#{@user.username} has made 2 ratings"
+      expect(page).to have_content "#{r1}"
+      expect(page).to have_content "#{r2}"
+      expect(page).not_to have_content "#{r3}"
+
     end
 
   end

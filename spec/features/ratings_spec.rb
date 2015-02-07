@@ -27,4 +27,24 @@ describe "Rating" do
     expect(beer1.ratings.count).to eq(1)
     expect(beer1.average_rating).to eq(15.0)
   end
+
+  it "shows zero ratings when no ratings have been given" do
+    visit ratings_path
+    expect(page).to have_content "Number of ratings: 0"
+  end
+
+  it "shows number of ratings and the ratings when ratings exist" do
+    r1 = Rating.create beer: beer1, user: user, score: 10
+    r2 = Rating.create beer: beer2, user: user, score: 20
+
+
+    visit ratings_path
+
+    expect(page).to have_content "Number of ratings: 2"
+
+    expect(page).to have_content "#{r1} #{user.username}"
+    expect(page).to have_content "#{r2} #{user.username}"
+  end
+
+
 end

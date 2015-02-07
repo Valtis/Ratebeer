@@ -1,11 +1,3 @@
-
-
-#Tee testi, joka varmistaa, että järjestelmään voidaan lisätä www-sivun kautta olut,
-# jos oluen nimikenttä saa validin arvon (eli se on epätyhjä). Tee myös testi, joka
-# varmistaa, että selain palaa oluen luomissivulle ja näyttää asiaan kuuluvan virhe-
-# ilmoituksen jos oluen nimi ei ole validi, ja että tälläisessä tapauksessa tieto-
-# kantaan ei talletu mitään.
-
 require 'rails_helper'
 
 describe "Beers page" do
