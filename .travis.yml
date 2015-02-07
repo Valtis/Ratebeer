@@ -1,10 +1,16 @@
 language: ruby
-
 rvm:
- - 2.2.0
-
+- 2.2.0
 script:
- - bundle exec rake db:migrate --trace
- - RAILS_ENV=test bundle exec rake db:migrate --trace
- - bundle exec rake db:test:prepare
- - bundle exec rspec -fd spec/
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: GP9adCw/S+SW0eZ9sWqN4aAGBEtzGUo7yHNNM7v+beBi8qeyZTL51/auwaYUuEz0xz6HUp23vRiTJnpY6iMeyY+2cDSOb6mGfBMIhMDMwBDgNy/sgAFDgOmRZlPfsCWIEqk0f8dOCsaZ/7OQsoNwk+/XHheE2AVvDW4aOFFyYpw=
+  app: radiant-beyond-9376
+  on:
+    repo: Valtis/Ratebeer
+  run: db:migrate
