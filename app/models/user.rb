@@ -25,15 +25,33 @@ class User < ActiveRecord::Base
   def favorite_style
     return nil if ratings.empty?
 
-    style_ratings = ratings.group_by{|r| r.beer.style }.map { |key, value|
-      [ key, get_sum_of(value)/value.count ]
-    }
-
-    style_ratings.sort_by { |k| k[1]}.last[0]
-
+    style_ratings = ratings.group_by{|r| r.beer.style }.map { |key, value| create_key_average_score_array(key, value) }
+    get_key_with_highest_value(style_ratings)
   end
 
-  def get_sum_of(rating_array)
+  def favorite_brewery
+    return nil if ratings.empty?
+
+    brewery_ratings = ratings.group_by{|r| r.beer.brewery }.map { |key, value| create_key_average_score_array(key, value) }
+
+    get_key_with_highest_value(brewery_ratings)
+  end
+
+
+
+
+
+  private
+
+  def create_key_average_score_array(key, value)
+    [ key, get_sum_of_scores(value)/value.count ]
+  end
+
+  def get_key_with_highest_value(key_value_array)
+    key_value_array.sort_by { |k| k[1]}.last[0]
+  end
+
+  def get_sum_of_scores(rating_array)
     rating_array.inject(0){|sum, r| sum + r.score }.to_f
   end
 

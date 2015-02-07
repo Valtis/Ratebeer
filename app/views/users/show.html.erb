@@ -1,10 +1,29 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Username:</strong>
+<strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
   <%= @user.username %> has made <%= @user.ratings.count %> ratings with average score of <%= @user.average_rating %>
 </p>
 
+<p>
+  <strong>Favorite brewery:</strong>
+  <% if not @user.favorite_brewery.nil?%>
+    <%= @user.favorite_brewery.name %>
+  <%else %>
+    No favorite brewery yet
+  <%end%>
+  <br/>
+  <strong>Favorite style:</strong>
+  <% if not @user.favorite_style.nil?%>
+    <%= @user.favorite_style %>
+  <%else%>
+    No favorite style yet
+  <%end%>
+</p>
 
 <% if not @user.ratings.empty? %>
 <p><strong>Ratings</strong></p>

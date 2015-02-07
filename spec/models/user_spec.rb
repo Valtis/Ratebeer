@@ -63,32 +63,42 @@ RSpec.describe User, type: :model do
       expect(user.favorite_style).to eq(nil)
     end
 
-    it 'with single rating is the only style' do
-      create_beer_with_rating_and_style(15, 'lager', user)
+    it 'with single beer is the only style' do
+      create_beers_with_scores_and_style(15, 'lager', user)
       expect(user.favorite_style).to eq('lager')
     end
 
-    it 'with multiple ratings is the only with highest average score' do
-      create_beer_with_rating_and_style(15, 'style1', user)
-      create_beer_with_rating_and_style(10, 'style1', user)
-      create_beer_with_rating_and_style(20, 'style1', user)
-      create_beer_with_rating_and_style(4, 'style1', user)
-
-      create_beer_with_rating_and_style(30, 'style2', user)
-      create_beer_with_rating_and_style(40, 'style2', user)
-      create_beer_with_rating_and_style(20, 'style2', user)
-
-      create_beer_with_rating_and_style(10, 'style3', user)
-      create_beer_with_rating_and_style(9, 'style3', user)
-      create_beer_with_rating_and_style(50, 'style3', user)
-      create_beer_with_rating_and_style(2, 'style3', user)
-      create_beer_with_rating_and_style(32, 'style3', user)
+    it 'with multiple beers is the only with highest average score' do
+      create_beers_with_scores_and_style(15, 10, 20, 4, 'style1', user)
+      create_beers_with_scores_and_style(30, 40, 20, 'style2', user)
+      create_beers_with_scores_and_style(10, 9, 50, 2, 32, 'style3', user)
 
       expect(user.favorite_style).to eq('style2')
     end
-
-
   end
+
+  describe 'favorite_brewery' do
+    let!(:user) { FactoryGirl.create(:user) }
+
+    it 'without ratings does not have one' do
+      expect(user.favorite_brewery).to eq(nil)
+    end
+
+    it 'with single brewery is the only brewery' do
+      brewery = create_ratings_for_brewery(10, 20, 30, 40, user)
+      expect(user.favorite_brewery).to eq(brewery)
+    end
+
+    it 'with multiple breweries is the brewery with highest average score' do
+      create_ratings_for_brewery(10, 20, 30, 40, user)
+      create_ratings_for_brewery(10, 15, 12, 40, user)
+      brewery = create_ratings_for_brewery(30, 25, 35, 32, user)
+      create_ratings_for_brewery(10, 50, 10, 2, user)
+
+      expect(user.favorite_brewery).to eq(brewery)
+    end
+  end
+
 
   describe 'with a proper password' do
     let!(:user) { FactoryGirl.create(:user) }
@@ -115,15 +125,26 @@ RSpec.describe User, type: :model do
     beer
   end
 
-  def create_beer_with_rating_and_style(score, style, user)
-    beer = FactoryGirl.create(:beer, style: style)
-    FactoryGirl.create(:rating, score:score, beer:beer, user:user)
-    beer
-  end
-
   def create_beers_with_ratings(*scores, user)
     scores.each do |score|
       create_beer_with_rating(score, user)
     end
   end
+
+  def create_beers_with_scores_and_style(*scores, style, user)
+    scores.each do |score|
+      beer = FactoryGirl.create(:beer, style: style)
+      FactoryGirl.create(:rating, score:score, beer:beer, user:user)
+    end
+  end
+
+  def create_ratings_for_brewery(*scores, user)
+    brewery = FactoryGirl.create(:brewery)
+    scores.each do |score|
+      beer = FactoryGirl.create(:beer, brewery: brewery)
+      FactoryGirl.create(:rating, score:score, beer:beer, user:user)
+    end
+    brewery
+  end
+
 end
