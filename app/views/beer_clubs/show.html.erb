@@ -24,5 +24,14 @@
   </ul>
 </p>
 
+<% if current_user and not current_user_is_member_of_club(@beer_club) %>
+
+    <%= form_for(@membership) do |f| %>
+        <%= f.hidden_field :beer_club_id %>
+        <%= f.submit %>
+    <% end %>
+
+<% end %>
+
 <%= link_to 'Edit', edit_beer_club_path(@beer_club) %> |
 <%= link_to 'Back', beer_clubs_path %>

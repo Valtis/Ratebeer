@@ -4,11 +4,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 
-  helper_method :current_user
+  helper_method :current_user, :current_user_is_member_of_club
 
   def current_user
     return nil if session[:user_id].nil?
     User.find(session[:user_id])
+  end
+
+  def current_user_is_member_of_club(beer_club)
+    return false unless current_user
+
+    return beer_club.members.include?(current_user)
   end
 
   def ensure_that_signed_in
