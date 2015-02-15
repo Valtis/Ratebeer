@@ -38,6 +38,9 @@ gem 'rb-readline'
 #pw digest
 gem 'bcrypt', '~> 3.1.7'
 
+# http requests
+gem 'httparty'
+
 group :development, :test do
 
   gem 'better_errors'

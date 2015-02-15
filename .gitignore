@@ -14,6 +14,7 @@
 .repl_history
 build/
 
+.apikey.secret
 ## Documentation cache and generated files:
 /.yardoc/
 /_yardoc/
