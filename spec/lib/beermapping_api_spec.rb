@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 describe "BeermappingApi" do
+
+  before :each do
+    Rails.cache.clear
+  end
+
   it "When HTTP GET returns no entries, api returns empty array" do
     canned_answer = <<-END_OF_STRING
       <?xml version='1.0' encoding='utf-8' ?><bmp_locations><location><id></id><name></name><status></status><reviewlink></reviewlink><proxylink></proxylink><blogmap></blogmap><street></street><city></city><state></state><zip></zip><country></country><phone></phone><overall></overall><imagecount></imagecount></location></bmp_locations>
