@@ -41,6 +41,7 @@ gem 'bcrypt', '~> 3.1.7'
 # http requests
 gem 'httparty'
 
+
 group :development, :test do
 
   gem 'better_errors'
@@ -64,6 +65,8 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
+  #http mocking
+  gem 'webmock'
 end
 
 group :production do
