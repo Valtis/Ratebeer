@@ -4,9 +4,8 @@ class BeermappingApi
     Rails.cache.fetch(city, :expires_in => 1.week) { fetch_places_in(city) }
   end
 
-  def self.foo(city)
-    city = city.downcase
-    fetch_places_in(city)
+  def self.place_with_id(id)
+    Rails.cache.fetch("place_id_#{id}", :expires_in => 1.day) { fetch_place_with_id(id) }
   end
 
   private
@@ -31,4 +30,12 @@ class BeermappingApi
     raise "beer api key not set" unless ENV['APIKEY']
     ENV['APIKEY']
   end
+
+  def self.fetch_place_with_id(id)
+    url = "http://beermapping.com/webservice/locquery/#{key}/"
+    response = HTTParty.get "#{url}#{id}"
+    place = Place.new response.parsed_response["bmp_locations"]["location"]
+    place
+  end
+
 end

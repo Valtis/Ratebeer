@@ -1,0 +1,10 @@
+
+<p>
+  <h1><%= @restaurant.name %></h1>
+</p>
+
+<p><%= @restaurant.street %></p>
+
+<p><%= "#{@restaurant.zip} #{@restaurant.city}"%></p>
+
+<iframe width="25%" height="400px" src="<%= @restaurant.blogmap %>"></iframe>
