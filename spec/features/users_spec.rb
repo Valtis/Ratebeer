@@ -48,7 +48,7 @@ describe "User" do
     it "and has reviews lists users favorite brewery and style" do
       visit user_path(@user)
       expect(page).to have_content 'Favorite brewery: anonymous'
-      expect(page).to have_content 'Favorite style: Lager'
+      expect(page).to have_content 'Favorite style: lager'
     end
 
     it "and has no reviews lists notification about no style and brewery" do

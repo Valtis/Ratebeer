@@ -19,7 +19,7 @@
   <br/>
   <strong>Favorite style:</strong>
   <% if not @user.favorite_style.nil?%>
-    <%= @user.favorite_style %>
+    <%= @user.favorite_style.name %>
   <%else%>
     No favorite style yet
   <%end%>
