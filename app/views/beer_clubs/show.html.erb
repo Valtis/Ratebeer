@@ -24,11 +24,17 @@
   </ul>
 </p>
 
-<% if current_user and not current_user_is_member_of_club(@beer_club) %>
+<% if current_user_is_member_of_club(@beer_club) %>
 
+    <%= form_for(@membership, method: "delete") do |f| %>
+        <%= f.hidden_field :beer_club_id %>
+        <%= f.submit value: "End the membership" %>
+    <% end %>
+
+<% else %>
     <%= form_for(@membership) do |f| %>
         <%= f.hidden_field :beer_club_id %>
-        <%= f.submit %>
+        <%= f.submit value: "Join this club" %>
     <% end %>
 
 <% end %>
