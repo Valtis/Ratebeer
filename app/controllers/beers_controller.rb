@@ -3,6 +3,8 @@ class BeersController < ApplicationController
   before_action :ensure_that_signed_in, except: [:index, :show]
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
   before_action :set_new_edit_data, only: [:new, :edit, :create]
+  before_action :ensure_that_admin, only: [:destroy]
+
   # GET /beers
   # GET /beers.json
   def index

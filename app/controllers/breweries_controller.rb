@@ -2,6 +2,7 @@ class BreweriesController < ApplicationController
 
   before_action :ensure_that_signed_in, except: [:index, :show]
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_admin, only: [:destroy]
 
 
   # GET /breweries
@@ -39,6 +40,16 @@ class BreweriesController < ApplicationController
         format.json { render json: @brewery.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+
+  def toggle_activity
+    brewery = Brewery.find(params[:id])
+    brewery.update_attribute :active, (not brewery.active)
+
+    new_status = brewery.active? ? "active" : "retired"
+
+    redirect_to :back, notice:"brewery activity status changed to #{new_status}"
   end
 
   # PATCH/PUT /breweries/1
