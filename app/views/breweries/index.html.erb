@@ -1,29 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Breweries</h1>
-<p>Number of breweries: <%= @breweries.count %></p>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Year</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<p>Number of breweries: <%= @active_breweries.count + @retired_breweries.count%></p>
 
-  <tbody>
-    <% @breweries.each do |brewery| %>
-      <tr>
-        <td><%= link_to brewery.name, brewery %></td>
-        <td><%= brewery.year %></td>
-        <% if current_user %>
-            <td><%= link_to 'Edit', edit_brewery_path(brewery), class:"btn btn-primary"  %></td>
-            <td><%= link_to 'Destroy', brewery, class:"btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+<%= render 'breweries_list', breweries: @active_breweries %>
+<br>
+
+<%= render 'breweries_list', breweries: @retired_breweries %>
 
 <br>
 
