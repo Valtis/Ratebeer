@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :toggle_ban]
+  before_action :is_admin, only: [:toggle_ban]
 
   # GET /users
   # GET /users.json
@@ -52,6 +53,11 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def toggle_ban
+    @user.update_attribute(:banned, !@user.banned)
+    redirect_to user_path(@user)
   end
 
   # DELETE /users/1

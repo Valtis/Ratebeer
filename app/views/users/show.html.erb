@@ -3,6 +3,15 @@
 <p>
 <strong>Username:</strong>
   <%= @user.username %>
+  <% if is_admin %>
+      <% if @user.banned %>
+        <h2 class="alert alert-danger">BANNED</h2>
+        <%= link_to "Unban user", toggle_ban_user_path(@user.id), method: :post, class: "btn btn-primary" %>
+      <% else %>
+        <%= link_to "Ban user", toggle_ban_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+    <% end %>
+    <%end %>
+
 </p>
 
 <p>

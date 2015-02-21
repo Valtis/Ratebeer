@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_admin
-    false unless current_user
+    return false unless current_user
     current_user.admin
   end
 
@@ -29,5 +29,6 @@ class ApplicationController < ActionController::Base
   def ensure_that_admin
     redirect_to root_path, notice:'This action is reserved for admins' unless is_admin
   end
+
 
 end
