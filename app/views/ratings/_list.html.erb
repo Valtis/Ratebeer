@@ -2,6 +2,7 @@
   <thead>
   <tr>
     <th><%= name %></th>
+    <th>Average rating</th>
   </tr>
   </thead>
 
@@ -10,6 +11,7 @@
   <% items.each do |item| %>
       <tr>
         <th> <%= link_to item, item %></th>
+        <th><%= item.average_rating %></th>
       </tr>
   <% end %>
   </tbody>

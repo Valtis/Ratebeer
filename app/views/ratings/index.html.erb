@@ -12,4 +12,23 @@
 <%= render 'list', items: @users, name: "User" %>
 
 <h2>Recent ratings</h2>
-<%= render 'list', items: @recent_ratings, name: "Rating" %>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Beer name</th>
+    <th>Rater</th>
+    <th>Score</th>
+  </tr>
+  </thead>
+
+  <tbody>
+
+  <% @recent_ratings.each do |rating| %>
+      <tr>
+        <th> <%= link_to rating.beer.name, beer_path(rating.beer) %></th>
+        <th> <%= link_to rating.user.username, user_path(rating.user)%></th>
+        <th><%= rating.score %> </th>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
