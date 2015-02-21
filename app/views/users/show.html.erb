@@ -31,7 +31,7 @@
   <% @user.ratings.each do |rating| %>
       <li> <%= rating %>
         <%if current_user == rating.user %>
-          <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'delete', rating, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
         <% end %>
       </li>
   <% end %>
