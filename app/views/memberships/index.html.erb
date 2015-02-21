@@ -17,10 +17,6 @@
         <td><%= membership.user.username %></td>
         <td><%= membership.beer_club.name %></td>
         <td><%= link_to 'Show', membership %></td>
-        <% if current_user %>
-            <td><%= link_to 'Edit', edit_membership_path(membership), class:"btn btn-primary"  %></td>
-            <td><%= link_to 'Destroy', membership, class:"btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
       </tr>
     <% end %>
   </tbody>

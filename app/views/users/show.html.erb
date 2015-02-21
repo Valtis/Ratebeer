@@ -6,7 +6,7 @@
 </p>
 
 <p>
-  <%= @user.username %> has made <%= @user.ratings.count %> ratings with average score of <%= @user.average_rating %>
+  <%= @user.username %> has made <%= @user.ratings.count %> ratings with average score of <%= round(@user.average_rating) %>
 </p>
 
 <p>
@@ -49,9 +49,8 @@
 </p>
 
 
-<% if @user == current_user %>
-  <%= link_to 'Edit', edit_user_path(@user) %> |
-  <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<% end %>
 
+<br/>
+<%= edit_and_destroy_buttons(@user) %>
+<br/>
 <%= link_to 'Back', users_path %>

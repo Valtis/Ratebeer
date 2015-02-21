@@ -33,11 +33,13 @@
   <% if @brewery.ratings.empty? %>
       This brewery has not yet been rated
   <% else %>
-      This brewery has <%= pluralize(@brewery.ratings.count , 'rating') %> with an average score of <%= @brewery.average_rating %>
+      This brewery has <%= pluralize(@brewery.ratings.count , 'rating') %> with an average score of <%= round(@brewery.average_rating) %>
   <% end %>
 </p>
 
 
-<%= link_to 'Edit', edit_brewery_path(@brewery), class:"btn btn-primary"%> |
-<%= link_to 'Destroy', @brewery, class:"btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %> |
+
+<br/>
+<%= edit_and_destroy_buttons(@brewery) %>
+<br/>
 <%= link_to 'Back', breweries_path, class:"btn btn-primary"%>

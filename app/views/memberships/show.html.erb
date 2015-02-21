@@ -10,5 +10,8 @@
   <%= @membership.beer_club.name %>
 </p>
 
-<%= link_to 'Edit', edit_membership_path(@membership) %> |
+
+<br/>
+<%= edit_and_destroy_buttons(@membership) %>
+<br/>
 <%= link_to 'Back', memberships_path %>

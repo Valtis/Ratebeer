@@ -1,15 +1,11 @@
-<h2>Top three breweries</h2>
-<%= render 'list', items: @breweries, name: "Beer" %>
 
-<h2>Top three beers</h2>
+<%= render 'list', items: @breweries, name: "Brewery" %>
+
 <%= render 'list', items: @beers, name: "Beer" %>
 
-
-<h2>Top three styles</h2>
 <%= render 'list', items: @styles, name: "Style" %>
 
-<h2>Top three raters</h2>
-<%= render 'list', items: @users, name: "User" %>
+<%= render 'list', items: @users, name: "Rater" %>
 
 <h2>Recent ratings</h2>
 <table class="table table-hover">

@@ -22,7 +22,7 @@
 <% if @beer.ratings.empty? %>
     This beer has not yet been rated
 <% else %>
-    This beer has <%= pluralize(@beer.ratings.count , 'rating') %> with an average score of <%= @beer.average_rating %>
+    This beer has <%= pluralize(@beer.ratings.count , 'rating') %> with an average score of <%= round(@beer.average_rating) %>
 <% end %>
 </p>
 
@@ -35,10 +35,9 @@
         score: <%= f.number_field :score %>
         <%= f.submit class:"btn btn-primary" %>
     <% end %>
-
-    <%= link_to 'Edit', edit_beer_path(@beer) %>
-
 <% end %>
 
-<%= link_to 'Edit', edit_beer_path(@beer) %> |
+<br/>
+<%= edit_and_destroy_buttons(@beer) %>
+<br/>
 <%= link_to 'Back', beers_path %>

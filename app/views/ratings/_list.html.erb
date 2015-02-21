@@ -1,3 +1,4 @@
+<h2>Top three <%= pluralize(3, name.downcase).split(" ")[1] %></h2>
 <table class="table table-hover">
   <thead>
   <tr>
@@ -11,7 +12,7 @@
   <% items.each do |item| %>
       <tr>
         <th> <%= link_to item, item %></th>
-        <th><%= item.average_rating %></th>
+        <th><%= round(item.average_rating) %></th>
       </tr>
   <% end %>
   </tbody>

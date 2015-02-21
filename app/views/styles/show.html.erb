@@ -12,8 +12,11 @@
 
 <p>
   <strong>Average rating:</strong>
-  <%= @style.average_rating %>
+  <%= round(@style.average_rating) %>
 </p>
 
-<%= link_to 'Edit', edit_style_path(@style) %> |
+
+<br/>
+<%= edit_and_destroy_buttons(@style) %>
+<br/>
 <%= link_to 'Back', styles_path %>
