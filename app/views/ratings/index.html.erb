@@ -2,11 +2,24 @@
 
 
 <p>Number of ratings: <%= @ratings.count %></p>
-<ul>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Rating</th>
+    <th>Rater</th>
+  </tr>
+  </thead>
+
+  <tbody>
+
   <% @ratings.each do |rating| %>
-      <li> <%= rating %> <%= link_to rating.user.username, rating.user  %> </li>
+      <tr>
+          <th> <%= rating %></th>
+          <th><%= link_to rating.user.username, rating.user  %> </th>
+      </tr>
   <% end %>
-</ul>
+  </tbody>
+</table>
 
 <p>
   <%= link_to 'Create a new rating', new_rating_path %>

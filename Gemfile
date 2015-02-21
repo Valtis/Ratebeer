@@ -41,6 +41,11 @@ gem 'bcrypt', '~> 3.1.7'
 # http requests
 gem 'httparty'
 
+gem 'bootstrap-sass'
+
+group :development do
+  gem 'rails_layout'
+end
 
 group :development, :test do
 
