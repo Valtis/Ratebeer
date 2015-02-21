@@ -11,4 +11,5 @@ class Beer < ActiveRecord::Base
   def to_s
     "#{brewery.name}: #{name}"
   end
+
 end

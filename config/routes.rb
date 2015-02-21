@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :breweries
 
-  resources :ratings, only: [:index, :new, :create, :destroy]
+  resources :ratings, only: [:index, :new, :create, :destroy, :show]
 
   resource :session, only: [:new, :create, :delete]
 

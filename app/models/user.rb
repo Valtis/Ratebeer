@@ -37,9 +37,9 @@ class User < ActiveRecord::Base
     get_key_with_highest_value(brewery_ratings)
   end
 
-
-
-
+  def to_s
+    username
+  end
 
   private
 

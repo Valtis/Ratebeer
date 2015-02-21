@@ -1,0 +1,16 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th><%= name %></th>
+  </tr>
+  </thead>
+
+  <tbody>
+
+  <% items.each do |item| %>
+      <tr>
+        <th> <%= link_to item, item %></th>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -1,26 +1,15 @@
-<h2>List of ratings</h2>
+<h2>Top three breweries</h2>
+<%= render 'list', items: @breweries, name: "Beer" %>
+
+<h2>Top three beers</h2>
+<%= render 'list', items: @beers, name: "Beer" %>
 
 
-<p>Number of ratings: <%= @ratings.count %></p>
-<table class="table table-hover">
-  <thead>
-  <tr>
-    <th>Rating</th>
-    <th>Rater</th>
-  </tr>
-  </thead>
+<h2>Top three styles</h2>
+<%= render 'list', items: @styles, name: "Style" %>
 
-  <tbody>
+<h2>Top three raters</h2>
+<%= render 'list', items: @users, name: "User" %>
 
-  <% @ratings.each do |rating| %>
-      <tr>
-          <th> <%= rating %></th>
-          <th><%= link_to rating.user.username, rating.user  %> </th>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<p>
-  <%= link_to 'Create a new rating', new_rating_path, class:"btn btn-primary" if current_user %>
-</p>
+<h2>Recent ratings</h2>
+<%= render 'list', items: @recent_ratings, name: "Rating" %>

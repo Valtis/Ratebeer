@@ -9,4 +9,8 @@ class Rating < ActiveRecord::Base
   def to_s
     "Beer: #{beer.name} Rating: #{score}"
   end
+
+  scope :recent, -> { order('id DESC').limit(5) }
+
+
 end

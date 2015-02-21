@@ -17,6 +17,8 @@ class Brewery < ActiveRecord::Base
   scope :active, -> { where active:true }
   scope :retired, -> { where active:[nil,false] }
 
-
+  def to_s
+    name
+  end
 
 end
