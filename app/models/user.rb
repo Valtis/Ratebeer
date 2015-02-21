@@ -23,18 +23,17 @@ class User < ActiveRecord::Base
   end
 
   def favorite_style
-    return nil if ratings.empty?
-
-    style_ratings = ratings.group_by{|r| r.beer.style }.map { |key, value| create_key_average_score_array(key, value) }
-    get_key_with_highest_value(style_ratings)
+    favorite(:style)
   end
 
   def favorite_brewery
+    favorite(:brewery)
+  end
+
+  def favorite(obj)
     return nil if ratings.empty?
-
-    brewery_ratings = ratings.group_by{|r| r.beer.brewery }.map { |key, value| create_key_average_score_array(key, value) }
-
-    get_key_with_highest_value(brewery_ratings)
+    object_type_average_score_array = ratings.group_by{|r| r.beer.send(obj) }.map { |key, value| create_key_average_score_array(key, value) }
+    get_key_with_highest_value(object_type_average_score_array)
   end
 
   def to_s

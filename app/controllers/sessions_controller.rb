@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
       if user.banned
         redirect_to signin_path, notice: "You have been banhammered, please contact admin team"
       else
+        reset_session
         session[:user_id] = user.id
         redirect_to user, notice: "Welcome back!"
       end

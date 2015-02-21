@@ -49,8 +49,8 @@ describe "Rating" do
 
     expect(page).to have_content "#{user.username}"
 
-    expect(page).to have_content "#{r1}"
-    expect(page).to have_content "#{r2}"
+    expect(page).to have_content "#{r1.score}"
+    expect(page).to have_content "#{r2.score}"
   end
 
 end
