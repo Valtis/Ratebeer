@@ -11,8 +11,14 @@ class BreweriesController < ApplicationController
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
 
-
     order = params[:order] || 'name'
+
+    if session[:brewery_year_ordering].nil?
+      session[:brewery_year_ordering] = 1
+    else
+      session[:brewery_year_ordering] = session[:brewery_year_ordering]*-1
+    end
+
     @active_breweries = order_collection_by(@active_breweries, order)
     @retired_breweries = order_collection_by(@retired_breweries, order)
   end
@@ -94,8 +100,11 @@ class BreweriesController < ApplicationController
 
     def order_collection_by(collection, order)
       case order
-        when 'name' then collection.sort_by{ |c| c.name.upcase }
-        when 'year' then collection.sort_by{ |c| -c.year }
+        when 'name' then
+          session[:brewery_year_ordering] = nil
+          collection.sort_by{ |c| c.name.upcase }
+        when 'year' then
+          collection.sort_by{ |c| session[:brewery_year_ordering]*c.year }
       end
     end
 end
