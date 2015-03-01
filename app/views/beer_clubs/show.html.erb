@@ -17,18 +17,31 @@
 
 <p>
   <strong>Members:</strong>
-  <ul>
-  <% @beer_club.members.each do |m| %>
-    <li><%= link_to m.username, m %></li>
-  <% end  %>
-  </ul>
+  <%= render 'membership_list', members: @beer_club.confirmed_members, outstanding: false %>
 </p>
 
+<% if @beer_club.pending_members.count > 0 %>
+<p>
+  <strong>Outstanding applications:</strong>
+  <%= render 'membership_list', members: @beer_club.pending_members, outstanding: true %>
+</p>
+<% else %>
+    <p><strong>No outstanding applications</strong></p>
+<% end %>
+
+
 <% if current_user_is_member_of_club(@beer_club) %>
+    <%
+       if @membership.confirmed
+         button_text = "End the membership"
+       else
+         button_text = "Cancel application"
+       end
+    %>
 
     <%= form_for(@membership, method: "delete") do |f| %>
         <%= f.hidden_field :beer_club_id %>
-        <%= f.submit class:"btn btn-danger",  value: "End the membership" %>
+        <%= f.submit class:"btn btn-danger",  value: button_text %>
     <% end %>
 
 <% else %>

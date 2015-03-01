@@ -5,6 +5,13 @@ class User < ActiveRecord::Base
   has_many :memberships, dependent: :destroy
   has_many :beer_clubs, through: :memberships
 
+  has_many :confirmed_memberships, -> { where confirmed:true}, class_name: 'Membership'
+  has_many :pending_memberships, -> { where confirmed:[false, nil]}, class_name: 'Membership'
+
+  has_many :confirmed_clubs, through: :confirmed_memberships, source: :beer_club
+  has_many :pending_clubs, through: :pending_memberships, source: :beer_club
+
+
   has_secure_password
 
   validates :username, uniqueness: true,  length: { minimum: 3, maximum: 15 }

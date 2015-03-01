@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   resources :styles
 
-  resources :memberships
+  resources :memberships do
+    post 'accept', on: :member
+  end
+
 
   resources :beer_clubs
-
   resources :users do
     post 'toggle_ban', on: :member
   end
@@ -32,7 +34,10 @@ Rails.application.routes.draw do
   get 'ngbeerlist', to:'beers#nglist'
   get 'brewerieslist', to:'breweries#ngindex'
 
+
+
   resources :places, only: [:index, :show]
+
   post 'places', to:'places#search'
 
 

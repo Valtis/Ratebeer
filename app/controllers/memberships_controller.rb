@@ -2,6 +2,7 @@ class MembershipsController < ApplicationController
 
   before_action :ensure_that_signed_in, except: [:index, :show]
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_signed_in, only: [:accept]
 
   # GET /memberships
   # GET /memberships.json
@@ -30,7 +31,7 @@ class MembershipsController < ApplicationController
 
 
 
-    @membership = Membership.new(beer_club_id: params[:membership][:beer_club_id], user_id: current_user.id)
+    @membership = Membership.new(beer_club_id: params[:membership][:beer_club_id], user_id: current_user.id, confirmed: false)
 
     respond_to do |format|
       if @membership.save
@@ -43,6 +44,16 @@ class MembershipsController < ApplicationController
         @beer_clubs = BeerClub.all
       end
     end
+  end
+
+
+  def accept
+    membership = Membership.find_by id: params[:id]
+    redirect_to root_path unless membership.beer_club.confirmed_members.include? current_user
+    membership.confirmed = true
+    membership.save
+
+    redirect_to beer_club_path(membership.beer_club)
   end
 
   # PATCH/PUT /memberships/1

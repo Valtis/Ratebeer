@@ -1,0 +1,10 @@
+<ul>
+  <% members.each do |m| %>
+      <li><%= link_to m.username, m %>
+      <% if outstanding and @beer_club.confirmed_members.include? current_user %>
+        <% membership_id = @beer_club.pending_memberships.find_by user_id: m.id %>
+        <%= link_to 'Accept', accept_membership_path(membership_id), method: :post, class: "btn btn-primary" %>
+      <% end %>
+      </li>
+  <% end  %>
+</ul>

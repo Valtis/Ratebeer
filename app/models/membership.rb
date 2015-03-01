@@ -4,5 +4,4 @@ class Membership < ActiveRecord::Base
 
   validates :beer_club_id, :uniqueness => {:scope => [:user_id]}
 
-
 end
