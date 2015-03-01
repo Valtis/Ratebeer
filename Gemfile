@@ -70,12 +70,14 @@ group :development, :test do
 end
 
 group :test do
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
   #http mocking
   gem 'webmock'
+  gem 'selenium-webdriver'
 end
 
 group :production do
