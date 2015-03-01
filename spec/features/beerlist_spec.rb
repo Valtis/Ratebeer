@@ -48,4 +48,33 @@ describe "beerlist page" do
     row = find('table').find('tr:nth-child(4)')
     expect(row).to have_content('Nikolai')
   end
+
+  it 'has beers sorted alphabetically by style when clicking style', js: true do
+    visit beerlist_path
+    click_link('style')
+
+    row = find('table').find('tr:nth-child(2)')
+    expect(row).to have_content('Nikolai')
+
+    row = find('table').find('tr:nth-child(3)')
+    expect(row).to have_content('Fastenbier')
+
+    row = find('table').find('tr:nth-child(4)')
+    expect(row).to have_content('Lechte Weisse')
+  end
+
+
+  it 'has beers sorted alphabetically by brewery when clicking brewery', js: true do
+    visit beerlist_path
+    click_link('brewery')
+
+    row = find('table').find('tr:nth-child(2)')
+    expect(row).to have_content('Lechte Weisse')
+
+    row = find('table').find('tr:nth-child(3)')
+    expect(row).to have_content('Nikolai')
+
+    row = find('table').find('tr:nth-child(4)')
+    expect(row).to have_content('Fastenbier')
+  end
 end
