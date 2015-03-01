@@ -10,6 +10,11 @@ class BreweriesController < ApplicationController
   def index
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
+
+
+    order = params[:order] || 'name'
+    @active_breweries = order_collection_by(@active_breweries, order)
+    @retired_breweries = order_collection_by(@retired_breweries, order)
   end
 
   # GET /breweries/1
@@ -85,5 +90,12 @@ class BreweriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def brewery_params
       params.require(:brewery).permit(:name, :year, :active)
+    end
+
+    def order_collection_by(collection, order)
+      case order
+        when 'name' then collection.sort_by{ |c| c.name.upcase }
+        when 'year' then collection.sort_by{ |c| -c.year }
+      end
     end
 end
