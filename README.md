@@ -1,5 +1,6 @@
-https://radiant-beyond-9376.herokuapp.com/
-
+https://radiant-beyond-9376.herokuapp.com/  
+  
+Tests failing due to selenium tests as travis has no GUI. 
 [![Build Status](https://travis-ci.org/Valtis/Ratebeer.svg?branch=master)](https://travis-ci.org/Valtis/Ratebeer)  
 [![Code Climate](https://codeclimate.com/github/Valtis/Ratebeer/badges/gpa.svg)](https://codeclimate.com/github/Valtis/Ratebeer)  
 [![Test Coverage](https://codeclimate.com/github/Valtis/Ratebeer/badges/coverage.svg)](https://codeclimate.com/github/Valtis/Ratebeer)  

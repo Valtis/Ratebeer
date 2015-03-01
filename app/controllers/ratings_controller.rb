@@ -1,12 +1,18 @@
 class RatingsController < ApplicationController
 
   before_action :ensure_that_signed_in, except: [:index, :show]
+
+  # cachettaa tulokset 10 minuutiksi
+  # periaatteessa olisi kiva, että cachen päivitys tapahtuisi taustalla, koska päivitysoperaatio on hidas
   def index
-    @beers = Beer.top_average_ratings 3
-    @breweries = Brewery.top_average_ratings 3
-    @styles = Style.top_average_ratings 3
-    @users = User.top_ratings_count 3
-    @recent_ratings = Rating.recent
+    calculate_if_not_cached
+
+    @beers = Rails.cache.read "beer_top_3"
+    @breweries = Rails.cache.read "breweries_top_3"
+    @styles = Rails.cache.read "styles_top_3"
+    @users = Rails.cache.read "users_top_3"
+    @recent_ratings = Rails.cache.read "recent_ratings_top_3"
+
   end
 
   def new
@@ -37,6 +43,14 @@ class RatingsController < ApplicationController
     rating.delete if current_user ==  rating.user
     redirect_to :back
   end
+private
 
+  def calculate_if_not_cached
+    Rails.cache.fetch("beer_top_3", :expires_in => 10.minutes) { Beer.top_average_ratings 3 }
+    Rails.cache.fetch("breweries_top_3", :expires_in => 10.minutes) { Brewery.top_average_ratings 3 }
+    Rails.cache.fetch("styles_top_3", :expires_in => 10.minutes) { Style.top_average_ratings 3 }
+    Rails.cache.fetch("users_top_3", :expires_in => 10.minutes) { User.top_ratings_count 3 }
+    Rails.cache.fetch("recent_ratings_top_3", :expires_in => 10.minutes) { Rating.recent }
+  end
 end
 
