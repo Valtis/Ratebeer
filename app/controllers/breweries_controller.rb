@@ -1,6 +1,6 @@
 class BreweriesController < ApplicationController
 
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_signed_in, except: [:index, :show, :ngindex]
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
   before_action :ensure_that_admin, only: [:destroy]
 
@@ -21,6 +21,9 @@ class BreweriesController < ApplicationController
 
     @active_breweries = order_collection_by(@active_breweries, order)
     @retired_breweries = order_collection_by(@retired_breweries, order)
+  end
+
+  def ngindex
   end
 
   # GET /breweries/1

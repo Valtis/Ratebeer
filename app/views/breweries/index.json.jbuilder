@@ -1,4 +1,3 @@
-json.array!(@breweries) do |brewery|
-  json.extract! brewery, :id, :name, :year
-  json.url brewery_url(brewery, format: :json)
+json.array!(@active_breweries + @retired_breweries) do |brewery|
+  json.extract! brewery, :id, :name, :year, :beers
 end

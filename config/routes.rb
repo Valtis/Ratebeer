@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'beerlist', to:'beers#list'
 
   get 'ngbeerlist', to:'beers#nglist'
+  get 'brewerieslist', to:'breweries#ngindex'
 
   resources :places, only: [:index, :show]
   post 'places', to:'places#search'
