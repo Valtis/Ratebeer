@@ -4,20 +4,26 @@ class BeersController < ApplicationController
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
   before_action :set_new_edit_data, only: [:new, :edit, :create]
   before_action :ensure_that_admin, only: [:destroy]
+  before_action :expire_cache, only: [:create, :destroy, :update]
+  before_action :skip_if_cached, only:[:index]
+
+
+  def skip_if_cached
+    @order = params[:order] || 'name'
+    return render :index if fragment_exist?( "beerlist-#{@order}"  )
+  end
+
 
   # GET /beers
   # GET /beers.json
   def index
+    @beers = Beer.includes(:brewery, :style).all
 
-   # @beers = Beer.includes(:brewery, :style).all
-    @beers = Beer.all
-    order = params[:order] || 'name'
-
-    @beers = case order
-               when 'name' then @beers.sort_by{ |b| b.name.upcase }
-               when 'brewery' then @beers.sort_by{ |b| b.brewery.name.upcase }
-               when 'style' then @beers.sort_by{ |b| b.style.name.upcase }
-             end
+    @beers = case @order
+      when 'name' then @beers.sort_by{ |b| b.name.upcase }
+      when 'brewery' then @beers.sort_by{ |b| b.brewery.name.upcase }
+      when 'style' then @beers.sort_by{ |b| b.style.name.upcase }
+    end
   end
 
   def list
@@ -99,5 +105,9 @@ class BeersController < ApplicationController
     def set_new_edit_data
       @breweries = Brewery.all
       @styles = Style.all
+    end
+
+    def expire_cache
+      ["beerlist-name", "beerlist-brewery", "beerlist-style"].each{ |f| expire_fragment(f) }
     end
 end

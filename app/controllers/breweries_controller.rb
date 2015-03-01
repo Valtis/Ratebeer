@@ -3,21 +3,26 @@ class BreweriesController < ApplicationController
   before_action :ensure_that_signed_in, except: [:index, :show, :ngindex]
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
   before_action :ensure_that_admin, only: [:destroy]
+  before_action :expire_cache, only: [:create, :destroy, :update]
+  before_action :skip_if_cached, only:[:index]
 
 
   # GET /breweries
   # GET /breweries.json
+
+
+
+  def skip_if_cached
+    @order = params[:order] || 'name'
+    return render :index if fragment_exist?( "breweries-#{@order}"  )
+  end
+
+
   def index
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
 
     order = params[:order] || 'name'
-
-    if session[:brewery_year_ordering].nil?
-      session[:brewery_year_ordering] = 1
-    else
-      session[:brewery_year_ordering] = session[:brewery_year_ordering]*-1
-    end
 
     @active_breweries = order_collection_by(@active_breweries, order)
     @retired_breweries = order_collection_by(@retired_breweries, order)
@@ -107,7 +112,11 @@ class BreweriesController < ApplicationController
           session[:brewery_year_ordering] = nil
           collection.sort_by{ |c| c.name.upcase }
         when 'year' then
-          collection.sort_by{ |c| session[:brewery_year_ordering]*c.year }
+          collection.sort_by{ |c| c.year }
       end
+    end
+
+    def expire_cache
+      ["breweries-name", "breweries-brewery", "breweries-style"].each{ |f| expire_fragment(f) }
     end
 end
