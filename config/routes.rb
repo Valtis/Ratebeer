@@ -27,7 +27,9 @@ Rails.application.routes.draw do
 
   get 'signin', to: 'sessions#new'
 
+  get 'beerlist', to:'beers#list'
 
+  get 'ngbeerlist', to:'beers#nglist'
 
   resources :places, only: [:index, :show]
   post 'places', to:'places#search'
